@@ -1,71 +1,37 @@
-<div class="container">
-  <div class="jumbotron text-center bg-primary text-white">
-    <h1 class="display-4" id="app-title">Awesome Burger <img src="/assets/img/burger.jpg"></h1>
-    <p class="lead">Welcome to Awesome Burger. Home of the Awesome Burger.</p>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card border border-primary">
-        <div class="card-header bg-primary text-white">
-         Can I take your order?
-        </div>
-        <div class="card-body">
-          <form class="create-form">
-            <div class="form-group">
-              <label for="burger">Place order here:</label>
-              <input type="text" class="form-control" id="burgerToGo" placeholder="">
+<div class="row">
+  <center>
+    <div class="col-md-6">
+      <h4 class="red_font">Ready to eat!</h4>
+      <div id="ready_to_eat">
+        {{#each burgers}}
+          {{#unless devoured}}
+          <form action="burger/eat/{{id}}" method="POST">
+            <div class="input-group">
+              <li class="form-control">{{id}}. {{burger_name}}</li>
+                <span class="input-group-btn">
+                  <button class="btn btn-success devour-button" type="submit">Devour It!</button>
+                </span>
             </div>
-            <button class="btn btn-primary" type="submit">Place order</button>
           </form>
-        </div>
+          {{/unless}}
+        {{/each}}
       </div>
     </div>
-  </div>
+    <div class="col-md-6">
+      <h4 class="red_font">Already eaten!</h4>
+      <div id="already_eaten">
+        {{#each burgers}}
+          {{#if this.devoured}}
+            <div class="input-group">
+              <li class="form-control">{{this.id}}. {{this.burger_name}}</li>
+              <span class="input-group-btn">
+                <button class="btn btn-info whine-button" type="button">Remove</button>
+              </span>
+            </div>
+          {{/if}}
+        {{/each}}
 
-  <div class="row mt-4">
-    <div class="col-md-6 mt-4">
-      <div class="card border border-primary">
-        <div class="card-header bg-primary text-white">
-         Burgers
-        </div>
-        <div class="card-body">
-              {{#each burgers}}
-                {{#unless devoured}}
-                  {{> burgers/burger-block devour=false}}
-                {{/unless}}
-              {{/each}}
-        </div>
       </div>
     </div>
-
-    <div class="col-md-6 mt-4">
-      <div class="card devoured-card">
-        <div class="card-header text-white" id="devoured-card-header">
-         Devoured burgers
-        </div>
-        <div class="card-body">
-          {{#each burgers}}
-              {{#if devoured}}
-                {{> burgers/burger-devoured devour=true}}
-              {{/if}}
-          {{/each}}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row mt-5">
-    <div class="col-md-12">
-      <div class="card footer">
-        <div class="card-body footer-body text-white">
-          <h5 class="card-title text-white">Awesome Burger</h5>
-          <p class="card-text">Welcome to Awesome Burger. Home of the Awesome Burger.</p>
-          <a href="https://github.com/cmoorelvt/burger" class="btn btn-primary mr-2" target="_blank">GitHub Repo</a>
-          <a href="https://www.linkedin.com/in/cmoorelvt/" class="btn btn-primary" target="_blank">LinkedIn</a>
-          <br>
-          <br>
-        </div>
-      </div>
-    </div>
+  </center>
 </div>
